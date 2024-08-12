@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Age calculator app</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      :root {
+        --Purple: hsl(259, 100%, 65%);
+        --Light-red: hsl(0, 100%, 67%);
+
+        --White: hsl(0, 0%, 100%);
+        --Off-white: hsl(0, 0%, 94%);
+        --Light-grey: hsl(0, 0%, 86%);
+        --Smokey-grey: hsl(0, 1%, 44%);
+        --Off-black: hsl(0, 0%, 8%);
+      }
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        height: 100vh;
+        width: 40%;
+        margin: auto;
+        background-color: var(--Light-grey);
+      }
+      .container {
+        display: inline-block;
+        width: 1440px;
+        /* flex-direction: column;
+        align-items: right;
+        justify-content: right; */
+        border: 2px solid #000;
+        margin-top: 10vh;
+        padding: 20px 30px;
+        width: 100%;
+        background-color: #fff;
+        border: none;
+        border-radius: 10px;
+        border-bottom-right-radius: 50px;
+        position: relative;
+
+        /* height: 50%; */
+      }
+      label {
+        display: block;
+        font-size: 10px;
+        padding: 5px 0;
+        font-weight: 700;
+      }
+      #input {
+        margin-top: -10px;
+      }
+      #input .day,
+      .month,
+      .year {
+        display: inline-block;
+      }
+      input {
+        width: 80px;
+        padding: 10px 18px;
+        border: none;
+        box-shadow: 0px 0px 2px var(--Smokey-grey);
+        border-radius: 5px;
+        margin-right: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        /* outline: red; */
+        outline-color: hsla(0, 1%, 44%, 0.747) ;
+        outline-width: 1px;
+      }
+
+      #ymd {
+        padding: 0;
+        margin: 0;
+        font-size: 32px;
+        font-weight: bold;
+      }
+
+      #ymd h1:nth-child(2) {
+        margin-top: -60px;
+      }
+      #ymd h1:nth-child(3) {
+        margin-top: -60px;
+      }
+
+      .icon-arrow {
+        display: flex;
+        align-items: right;
+        justify-content: right;
+        margin: -10px 0;
+      }
+      .icon-arrow img,
+      .icon-arrow button {
+        border: none;
+        background-color: hsl(259, 100%, 65%);
+        padding: 5px;
+        border-radius: 50%;
+      }
+      .icon-arrow button {
+        background: none;
+      }
+
+      span {
+        color: hsl(259, 100%, 65%);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Day DD Month MM Year YYYY -- years -- months -- days -->
+    <div class="container">
+      <div id="input">
+        <div class="day">
+          <label for="dayy" class="label">DAY</label>
+          <input id="day" type="number" placeholder="DD" max="31" />
+          <small class="error-day"></small>
+        </div>
+
+        <div class="month">
+          <label for="month" class="label">MONTH</label>
+          <input id="month" type="text" placeholder="MM" />
+          <small class="error-month"></small>
+        </div>
+
+        <div class="year">
+          <label for="year" id="year" class="label">YEAR</label>
+          <input id="year" type="number" placeholder="YYYY" />
+          <small class="error-year"></small>
+        </div>
+      </div>
+
+      <div class="icon-arrow">
+        <button id="calc-btn">
+          <img src="assets/images/icon-arrow.svg" id="arrowimg" />
+        </button>
+      </div>
+      <div id="ymd">
+        <h1><span id="year-imp">--</span>years</h1>
+        <h1><span id="month-imp">--</span>months</h1>
+        <h1><span id="day-imp">--</span>days</h1>
+      </div>
+
+      <div class="attribution">
+        Challenge by
+        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+          >Frontend Mentor</a
+        >. Coded by <a href="#">Johntizzy</a>.
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded',() => {
+                                                          
+        const today = new Date();
+
+const label = document.getElementsByClassName("label");
+const dayInput = Number(document.querySelector("#day").value);
+const monthInput = Number(document.querySelector("#month").value);
+const yearInput = Number(document.getElementById("year").value);
+//Input in Purple
+console.log(dayInput)
+
+
+const dayInputValue = document.getElementById("day-imp");
+const monthInputValue = document.getElementById("month-imp");
+const yearInputValue = document.getElementById("year-imp");
+const calcBtn = document.getElementById("calc-btn");
+
+//button
+const arrowImage = document.getElementById("arrowimg");
+
+// const thisYear = today.getFullYear();
+// const thisMonth = today.getMonth() + 1;
+// const datetoday = today.getDate();
+// console.log(datetoday);
+//blood on he dance floor-> canada -> MadanTheMadam -> singleAgain => bubalu => meAndu
+
+const birthDate = new Date(yearInput, monthInput - 1, dayInput)
+const ageInMilliseconds = today - birthDate;
+    const ageInSeconds = ageInMilliseconds / 1000;
+    const ageInMinutes = ageInSeconds / 60;
+    const ageInHours = ageInMinutes / 60;
+    const ageInDays = ageInHours / 24;
+
+    const years = Math.floor(ageInDays / 365);
+    const months = Math.floor((ageInDays % 365) / 30); // Approximate months
+    const days = Math.floor(ageInDays % 30);
+console.log(yearInput)
+
+
+//Functions for button
+calcBtn.addEventListener("click", () => {
+  console.log(yearInput.value);
+
+  console.log(Number(monthInput.value) + 2);
+  console.log(birthMonth);
+
+  // if (
+  //   dayInput.value < 31 &&
+  //   monthInput.value < 12 &&
+  //   yearInput.value < thisYear
+  // ) {
+
+    dayInputValue.innerHTML = days
+    console.log(dayInputValue)
+
+    // dayInput.style.border = "1px solid red";
+    // monthInput.style.border = "1px solid red";
+    // yearInput.style.border = "1px solid red";
+    // label.style.color = "red";
+  // } else {
+    // let year
+
+    // yearInputValue.textContent = year;
+    // arrowImage.style.backgroundColor = "#000";
+    console.log(year);
+//   }
+});
+      })
+    </script>
+  </body>
+</html>
